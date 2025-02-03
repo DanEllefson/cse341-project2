@@ -45,7 +45,7 @@ GET http://localhost:8080/armies/ HTTP/1.1
 
 ##############################################################
 // Local host: update the TEST Marro Hive BIGGER army to make it smaller
-PUT http://localhost:8080/armies/67a12b1d1073cfcd58d8a546 HTTP/1.1
+PUT http://localhost:8080/armies/67a12f711073cfcd58d8a567 HTTP/1.1
 content-type: application/json
 
 {
@@ -78,7 +78,7 @@ GET http://localhost:8080/armies/ HTTP/1.1
 
 ##############################################################
 // Local host: delete the TEST Marro Hive SMALLER army
-DELETE http://localhost:8080/armies/67a12b1d1073cfcd58d8a546 HTTP/1.1
+DELETE http://localhost:8080/armies/67a12f1934cc079c3e10ceaf HTTP/1.1
 
 
 
@@ -102,7 +102,7 @@ GET https://cse341-project2-t7en.onrender.com/armies/ HTTP/1.1
 
 ##############################################################
 // Remote host: request Marro Hive army
-GET https://cse341-project2-t7en.onrender.com/679ff3933d1717094be2c636 HTTP/1.1
+GET https://cse341-project2-t7en.onrender.com/armies/679ff3933d1717094be2c636 HTTP/1.1
 
 
 
@@ -141,7 +141,7 @@ GET https://cse341-project2-t7en.onrender.com/armies/ HTTP/1.1
 
 ##############################################################
 // Remote host: update the TEST Marro Hive BIGGER army to make it smaller
-PUT https://cse341-project2-t7en.onrender.com/67a12b1d1073cfcd58d8a546 HTTP/1.1
+PUT https://cse341-project2-t7en.onrender.com/armies/67a1301134cc079c3e10ceb9 HTTP/1.1
 content-type: application/json
 
 {
@@ -174,7 +174,7 @@ GET https://cse341-project2-t7en.onrender.com/armies/ HTTP/1.1
 
 ##############################################################
 // Remote host: delete the TEST Marro Hive SMALLER army
-DELETE https://cse341-project2-t7en.onrender.com/armies/67a12b1d1073cfcd58d8a546 HTTP/1.1
+DELETE https://cse341-project2-t7en.onrender.com/armies/67a1301134cc079c3e10ceb9 HTTP/1.1
 
 
 
