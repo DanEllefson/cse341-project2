@@ -7,6 +7,6 @@ const router = express.Router();
 router.use('/', require('./swagger'));
 
 // Mount a sub-router to handle all routes under /armies
-router.use('/contacts', require('./armies'));
+router.use('/armies', require('./armies'));
 
 module.exports = router;

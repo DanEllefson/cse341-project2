@@ -73,7 +73,6 @@ const getSingle = async (req, res) => {
  * /armies:
  *   post:
  *     summary: Create a new army
- *     description: Create a new army by providing the necessary fields.
  *     requestBody:
  *       required: true
  *       content:
@@ -82,10 +81,31 @@ const getSingle = async (req, res) => {
  *             $ref: '#/components/schemas/Army'
  *     responses:
  *       201:
- *         description: New army added
+ *         description: Army created
+ *       400:
+ *         description: Bad request
  */
 const createSingle = async (req, res) => {
-  const army = new Army(req.body); // Use request body directly here
+  const army = new Army({
+    name: req.body.name,
+    type: req.body.type,
+    general: req.body.general,
+    attack: req.body.attack,
+    defense: req.body.defense,
+    move: req.body.move,
+    range: req.body.range,
+    life: req.body.life,
+    cost: req.body.cost,
+    specialPowers: req.body.specialPowers,
+    class: req.body.class,
+    species: req.body.species,
+    personality: req.body.personality,
+    size: req.body.size,
+    height: req.body.height,
+    url: req.body.url,
+    wave: req.body.wave
+  });
+
   try {
     await army.save();
     res.setHeader('Content-Type', 'application/json');
@@ -129,13 +149,14 @@ const deleteSingle = async (req, res) => {
  * @swagger
  * /armies/{id}:
  *   put:
- *     summary: Update an army by ID
- *     description: Update an army's details by providing the new information.
+ *     summary: Update an existing army
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: The army's ID
+ *         description: The ID of the army to update
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -144,21 +165,18 @@ const deleteSingle = async (req, res) => {
  *             $ref: '#/components/schemas/Army'
  *     responses:
  *       200:
- *         description: Army updated
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Army'
+ *         description: Army updated successfully
  *       404:
  *         description: Army not found
+ *       400:
+ *         description: Invalid data provided
  */
 const updateSingle = async (req, res) => {
   try {
-    const returnArmy = await Army.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true } // 'new: true' returns the updated doc, 'runValidators' ensures validation
-    );
+    const returnArmy = await Army.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
 
     if (!returnArmy) {
       return res.status(404).json({ message: 'Army not found' });

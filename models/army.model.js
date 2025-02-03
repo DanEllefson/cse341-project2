@@ -79,4 +79,4 @@ const armySchema = new Schema({
 });
 
 // Export the model
-module.exports = mongoose.model('Armies', armySchema);
+module.exports = mongoose.model('Army', armySchema);

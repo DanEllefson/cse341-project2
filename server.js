@@ -6,6 +6,11 @@ const express = require('express');
 const cors = require('cors');
 const mongodb = require('./db/connect');
 
+// Ensure all models are registered
+require('./models/army.model');
+require('./models/general.model');
+require('./models/wave.model');
+
 const app = express();
 const port = process.env.PORT || 8080;
 
