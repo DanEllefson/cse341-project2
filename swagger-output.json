@@ -6,6 +6,7 @@
     "description": "This API manages a database of HeroScape figures and their associated data."
   },
   "host": "localhost:8080",
+  "basePath": "/",
   "schemes": [
     "http"
   ],
@@ -164,6 +165,66 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "type": {
+                  "example": "any"
+                },
+                "general": {
+                  "example": "any"
+                },
+                "attack": {
+                  "example": "any"
+                },
+                "defense": {
+                  "example": "any"
+                },
+                "move": {
+                  "example": "any"
+                },
+                "range": {
+                  "example": "any"
+                },
+                "life": {
+                  "example": "any"
+                },
+                "cost": {
+                  "example": "any"
+                },
+                "specialPowers": {
+                  "example": "any"
+                },
+                "class": {
+                  "example": "any"
+                },
+                "species": {
+                  "example": "any"
+                },
+                "personality": {
+                  "example": "any"
+                },
+                "size": {
+                  "example": "any"
+                },
+                "height": {
+                  "example": "any"
+                },
+                "url": {
+                  "example": "any"
+                },
+                "wave": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {

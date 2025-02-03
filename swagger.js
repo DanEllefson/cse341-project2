@@ -9,6 +9,7 @@ const doc = {
     description: 'This API manages a database of HeroScape figures and their associated data.'
   },
   host: 'localhost:8080',
+  basePath: '/',
   schemes: ['http'],
   components: {
     schemas: {
@@ -35,13 +36,39 @@ const doc = {
         }
       }
     }
+  },
+  paths: {
+    '/armies/{id}': {
+      put: {
+        description: 'Update an existing army',
+        parameters: [
+          {
+            name: 'id',
+            in: 'path',
+            required: true,
+            type: 'string',
+            description: 'ID of the army to update'
+          },
+          {
+            in: 'body',
+            name: 'body',
+            required: true,
+            schema: {
+              $ref: '#/components/schemas/Army'
+            }
+          }
+        ],
+        responses: {
+          200: { description: 'Army updated successfully' },
+          404: { description: 'Army not found' },
+          400: { description: 'Invalid data provided' }
+        }
+      }
+    }
   }
 };
 
 const outputFile = './swagger-output.json';
 const routes = ['./routes/index.js'];
-
-/* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
-root file where the route starts, such as index.js, app.js, routes.js, etc ... */
 
 swaggerAutogen(outputFile, routes, doc);
