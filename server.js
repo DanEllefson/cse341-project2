@@ -1,6 +1,11 @@
 'use strict';
 
-// Import the required modules
+/**
+ * @file server.js
+ * @description This file sets up and runs the Express server, connects to MongoDB, and handles graceful shutdown.
+ * @module server
+ */
+
 require('dotenv').config(); // This must load before other modules
 const express = require('express');
 const cors = require('cors');
@@ -14,23 +19,43 @@ require('./models/wave.model');
 const app = express();
 const port = process.env.PORT || 8080;
 
-// Mount the CORS middleware to allow requests from any origin
+/**
+ * @function setupCors
+ * @description Mount the CORS middleware to allow requests from any origin
+ */
 app.use(cors());
 
-// Mount the body parsing middleware
+/**
+ * @function setupBodyParser
+ * @description Mount the body parsing middleware
+ */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// All incoming requests will have the response headers set to allow all origins
+/**
+ * @function setupHeaders
+ * @description Set headers to allow all origins for all incoming requests
+ * @param {Object} _req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
 app.use('/', (_req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
 
-// All incoming requests are passed through the routes/index.js file
+/**
+ * @function setupRoutes
+ * @description All incoming requests are passed through the routes/index.js file
+ */
 app.use('/', require('./routes'));
 
-// Start the server
+/**
+ * @function startServer
+ * @description Starts the server and connects to MongoDB
+ * @param {Object} _req - The request object
+ * @param {Object} _res - The response object
+ */
 const server = app.listen(port, async (_req, _res) => {
   try {
     await mongodb.connectMongoose();
@@ -40,7 +65,10 @@ const server = app.listen(port, async (_req, _res) => {
   }
 });
 
-// Graceful shutdown on Nodemon restarts
+/**
+ * @function handleNodemonRestart
+ * @description Graceful shutdown when Nodemon restarts the server
+ */
 process.once('SIGUSR2', () => {
   console.log('Nodemon restart detected. Closing server...');
   server.close(() => {
@@ -49,7 +77,10 @@ process.once('SIGUSR2', () => {
   });
 });
 
-// Handle Ctrl+C or termination signals
+/**
+ * @function handleProcessTermination
+ * @description Handle termination signals (Ctrl+C or external signals)
+ */
 process.on('SIGINT', () => {
   console.log('Process terminated. Closing server...');
   server.close(() => {
@@ -57,7 +88,10 @@ process.on('SIGINT', () => {
   });
 });
 
-// Handle termination signals
+/**
+ * @function handleProcessTerminationExternal
+ * @description Handle external termination signals
+ */
 process.on('SIGTERM', () => {
   console.log('Process terminated by external signal. Closing server...');
   server.close(() => {

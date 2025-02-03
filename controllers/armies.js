@@ -1,6 +1,5 @@
 'use strict';
 
-// Import the required modules
 const Army = require('../models/army.model');
 
 /**
@@ -20,6 +19,13 @@ const Army = require('../models/army.model');
  *                 $ref: '#/components/schemas/Army'
  *       404:
  *         description: No armies found
+ */
+
+/**
+ * @function getAll
+ * @description Retrieve all armies from the database and return them in the response.
+ * @param {Object} _req - The request object
+ * @param {Object} res - The response object
  */
 const getAll = async (_req, res) => {
   try {
@@ -55,6 +61,13 @@ const getAll = async (_req, res) => {
  *       404:
  *         description: Army not found
  */
+
+/**
+ * @function getSingle
+ * @description Retrieve a single army by its ID and return the army with related general and wave.
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 const getSingle = async (req, res) => {
   try {
     const army = await Army.findById(req.params.id).populate('general').populate('wave');
@@ -84,6 +97,13 @@ const getSingle = async (req, res) => {
  *         description: Army created
  *       400:
  *         description: Bad request
+ */
+
+/**
+ * @function createSingle
+ * @description Create a new army and save it to the database.
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
  */
 const createSingle = async (req, res) => {
   const army = new Army({
@@ -131,6 +151,13 @@ const createSingle = async (req, res) => {
  *         description: Army deleted
  *       404:
  *         description: Army not found
+ */
+
+/**
+ * @function deleteSingle
+ * @description Delete an army by its ID from the database.
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
  */
 const deleteSingle = async (req, res) => {
   try {
@@ -191,6 +218,12 @@ const deleteSingle = async (req, res) => {
  *         description: Invalid data provided
  */
 
+/**
+ * @function updateSingle
+ * @description Update an existing army by its ID and save the changes to the database.
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 const updateSingle = async (req, res) => {
   try {
     // Create an Army object to force swagger-autogen to generate the request body
