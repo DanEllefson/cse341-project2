@@ -1,241 +1,176 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
     "title": "HeroScape API",
-    "description": "This API manages a database of HeroScape figures and their associated data."
+    "description": "This is an API that accesses the HeroScape database. It allows access to armies, generals, glyphs, and wave release information.\n",
+    "version": "1.0.0"
   },
-  "host": "localhost:8080",
-  "basePath": "/",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local Host"
+    },
+    {
+      "url": "https://cse341-project2-t7en.onrender.com",
+      "description": "Render Host"
+    }
+  ],
+  "tags": [
+    {
+      "name": "armies",
+      "description": "Access to all of the armies in the database"
+    },
+    {
+      "name": "generals",
+      "description": "Access to all of the generals in the database"
+    },
+    {
+      "name": "waves",
+      "description": "Access to all of the wave releases for Heroscape"
+    },
+    {
+      "name": "glyphs",
+      "description": "Access to all of the glyphs in the database"
+    }
   ],
   "paths": {
-    "/armies/": {
+    "/armies": {
       "get": {
-        "description": "Return all armies in the database.",
-        "produces": [
-          "application/json"
+        "tags": [
+          "armies"
         ],
+        "summary": "Return armies",
+        "description": "Return all armies in the database",
+        "operationId": "getAll",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Armies found"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Failed to get armies"
           },
           "404": {
-            "description": "Not Found"
+            "description": "No armies found in the database"
           }
         }
       },
       "post": {
-        "description": "Create a new army in the database.",
-        "produces": [
-          "application/json"
+        "tags": [
+          "armies"
         ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "type": {
-                  "example": "any"
-                },
-                "general": {
-                  "example": "any"
-                },
-                "attack": {
-                  "example": "any"
-                },
-                "defense": {
-                  "example": "any"
-                },
-                "move": {
-                  "example": "any"
-                },
-                "range": {
-                  "example": "any"
-                },
-                "life": {
-                  "example": "any"
-                },
-                "cost": {
-                  "example": "any"
-                },
-                "specialPowers": {
-                  "example": "any"
-                },
-                "class": {
-                  "example": "any"
-                },
-                "species": {
-                  "example": "any"
-                },
-                "personality": {
-                  "example": "any"
-                },
-                "size": {
-                  "example": "any"
-                },
-                "height": {
-                  "example": "any"
-                },
-                "url": {
-                  "example": "any"
-                },
-                "wave": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
+        "summary": "Create a new army",
+        "description": "Create a new army in the database",
+        "operationId": "createSingle",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Armies"
+        },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "New army created successfully"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Failed to create army"
           }
         }
       }
     },
     "/armies/{id}": {
       "get": {
-        "description": "Return a single army by ID from the database.",
-        "produces": [
-          "application/json"
+        "tags": [
+          "armies"
         ],
+        "summary": "Return a single army",
+        "description": "Return a single army from the database using the army id value",
+        "operationId": "getSingle",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id of army to return",
             "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "description": "Delete a single army by ID from the database.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "description": "Update a single army by ID in the database.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
+            "style": "simple",
+            "explode": false,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "type": {
-                  "example": "any"
-                },
-                "general": {
-                  "example": "any"
-                },
-                "attack": {
-                  "example": "any"
-                },
-                "defense": {
-                  "example": "any"
-                },
-                "move": {
-                  "example": "any"
-                },
-                "range": {
-                  "example": "any"
-                },
-                "life": {
-                  "example": "any"
-                },
-                "cost": {
-                  "example": "any"
-                },
-                "specialPowers": {
-                  "example": "any"
-                },
-                "class": {
-                  "example": "any"
-                },
-                "species": {
-                  "example": "any"
-                },
-                "personality": {
-                  "example": "any"
-                },
-                "size": {
-                  "example": "any"
-                },
-                "height": {
-                  "example": "any"
-                },
-                "url": {
-                  "example": "any"
-                },
-                "wave": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Army found"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Army not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "armies"
+        ],
+        "summary": "Update an existing army",
+        "description": "Update a single army from the database using the army id value",
+        "operationId": "updateSingle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of army to update",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Armies"
+        },
+        "responses": {
+          "200": {
+            "description": "Army updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Army not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "armies"
+        ],
+        "summary": "Delete a single army",
+        "description": "Delete a single army from the database using the army id value",
+        "operationId": "deleteSingle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of army to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Army deleted"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Army not found"
           }
         }
       }
@@ -243,7 +178,7 @@
   },
   "components": {
     "schemas": {
-      "Army": {
+      "Armies": {
         "type": "object",
         "properties": {
           "name": {
@@ -256,22 +191,28 @@
             "type": "string"
           },
           "attack": {
-            "type": "number"
+            "type": "integer",
+            "format": "int32"
           },
           "defense": {
-            "type": "number"
+            "type": "integer",
+            "format": "int32"
           },
           "move": {
-            "type": "number"
+            "type": "integer",
+            "format": "int32"
           },
           "range": {
-            "type": "number"
+            "type": "integer",
+            "format": "int32"
           },
           "life": {
-            "type": "number"
+            "type": "integer",
+            "format": "int32"
           },
           "cost": {
-            "type": "number"
+            "type": "integer",
+            "format": "int32"
           },
           "specialPowers": {
             "type": "string"
@@ -289,13 +230,57 @@
             "type": "string"
           },
           "height": {
-            "type": "number"
+            "type": "integer",
+            "format": "int32"
           },
           "url": {
             "type": "string"
           },
           "wave": {
             "type": "string"
+          }
+        }
+      },
+      "Generals": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "background": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          }
+        }
+      },
+      "Waves": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "releaseDate": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Armies": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Armies"
+            }
           }
         }
       }
