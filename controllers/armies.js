@@ -9,6 +9,7 @@ const getAll = async (_req, res) => {
     if (!armies || armies.length === 0) {
       return res.status(404).json({ message: 'No armies found in database' });
     }
+
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(armies);
   } catch (error) {
@@ -107,6 +108,10 @@ const updateSingle = async (req, res) => {
       url: req.body.url,
       wave: req.body.wave
     });
+
+    if (!army) {
+      return res.status(400).json({ message: 'Army object is empty' });
+    }
 
     // Convert Army object to a plain JavaScript object (removes Mongoose features)
     const armyObject = army.toObject();

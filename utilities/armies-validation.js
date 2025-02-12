@@ -1,13 +1,13 @@
 'use strict';
 
-const { body, validationResult } = require('express-validator');
+const { body, param, validationResult } = require('express-validator');
 const armiesValidate = {};
 
 /*************************************
  *  MongoId validation rules
  *************************************/
 armiesValidate.idRules = () => {
-  return [body('id').isMongoId().withMessage('Invalid ID')];
+  return [param('id').isMongoId().withMessage('Invalid ID')];
 };
 
 /*************************************

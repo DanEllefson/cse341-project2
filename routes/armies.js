@@ -15,7 +15,7 @@ router.get('/', utilities.handleErrors(armiesController.getAll));
 // Return a single army
 router.get(
   '/:id',
-  armiesValidate.idRules,
+  armiesValidate.idRules(),
   armiesValidate.checkId,
   utilities.handleErrors(armiesController.getSingle)
 );
@@ -23,15 +23,15 @@ router.get(
 // Delete a single army
 router.delete(
   '/:id',
-  armiesValidate.idRules,
-  armiesValidate.checkArmy,
+  armiesValidate.idRules(),
+  armiesValidate.checkId,
   utilities.handleErrors(armiesController.deleteSingle)
 );
 
 // Create a new army
 router.post(
   '/',
-  armiesValidate.armyRules,
+  armiesValidate.armyRules(),
   armiesValidate.checkArmy,
   utilities.handleErrors(armiesController.createSingle)
 );
@@ -39,8 +39,9 @@ router.post(
 // Update a single army
 router.put(
   '/:id',
-  armiesValidate.idRules,
-  armiesValidate.armyRules,
+  armiesValidate.idRules(),
+  armiesValidate.checkId,
+  armiesValidate.armyRules(),
   armiesValidate.checkArmy,
   utilities.handleErrors(armiesController.updateSingle)
 );
