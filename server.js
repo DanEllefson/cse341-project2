@@ -5,6 +5,8 @@ require('dotenv').config(); // This must load before other modules
 const express = require('express');
 const cors = require('cors');
 const mongodb = require('./db/connect');
+const routes = require('./routes/index');
+const utilites = require('./utilities/index');
 
 // Ensure all Mongoose schemas are registered
 require('./models/army.model');
@@ -28,7 +30,7 @@ app.use('/', (_req, res, next) => {
 });
 
 // All incoming requests are passed through the routes/index.js file
-app.use('/', require('./routes'));
+app.use('/', utilites.handleErrors(routes));
 
 // Start the server
 const server = app.listen(port, async (_req, _res) => {

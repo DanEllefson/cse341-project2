@@ -18,10 +18,15 @@ const getAll = async (_req, res) => {
 
 const getSingle = async (req, res) => {
   try {
+    if (!req.params.id) {
+      return res.status(400).json({ message: 'ID parameter is required' });
+    }
+
     const army = await Army.findById(req.params.id).populate('general').populate('wave');
     if (!army) {
       return res.status(404).json({ message: 'Army not found' });
     }
+
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(army);
   } catch (error) {
@@ -30,27 +35,31 @@ const getSingle = async (req, res) => {
 };
 
 const createSingle = async (req, res) => {
-  const army = new Army({
-    name: req.body.name,
-    type: req.body.type,
-    general: req.body.general,
-    attack: req.body.attack,
-    defense: req.body.defense,
-    move: req.body.move,
-    range: req.body.range,
-    life: req.body.life,
-    cost: req.body.cost,
-    specialPowers: req.body.specialPowers,
-    class: req.body.class,
-    species: req.body.species,
-    personality: req.body.personality,
-    size: req.body.size,
-    height: req.body.height,
-    url: req.body.url,
-    wave: req.body.wave
-  });
-
   try {
+    const army = new Army({
+      name: req.body.name,
+      type: req.body.type,
+      general: req.body.general,
+      attack: req.body.attack,
+      defense: req.body.defense,
+      move: req.body.move,
+      range: req.body.range,
+      life: req.body.life,
+      cost: req.body.cost,
+      specialPowers: req.body.specialPowers,
+      class: req.body.class,
+      species: req.body.species,
+      personality: req.body.personality,
+      size: req.body.size,
+      height: req.body.height,
+      url: req.body.url,
+      wave: req.body.wave
+    });
+
+    if (!army) {
+      return res.status(400).json({ message: 'Army object is empty' });
+    }
+
     await army.save();
     res.setHeader('Content-Type', 'application/json');
     res.status(201).json({ message: 'New army added', id: army._id });
@@ -61,10 +70,15 @@ const createSingle = async (req, res) => {
 
 const deleteSingle = async (req, res) => {
   try {
+    if (!req.params.id) {
+      return res.status(400).json({ message: 'ID parameter is required' });
+    }
+
     const army = await Army.findByIdAndDelete(req.params.id);
     if (!army) {
       return res.status(404).json({ message: 'Army not found' });
     }
+
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json({ message: 'Army deleted' });
   } catch (error) {
@@ -74,7 +88,6 @@ const deleteSingle = async (req, res) => {
 
 const updateSingle = async (req, res) => {
   try {
-    // Create an Army object to force swagger-autogen to generate the request body
     const army = new Army({
       name: req.body.name,
       type: req.body.type,
