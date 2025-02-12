@@ -3,6 +3,7 @@
 // Import the required modules
 const Army = require('../models/army.model');
 
+// Return all armies
 const getAll = async (_req, res) => {
   try {
     const armies = await Army.find();
@@ -17,6 +18,7 @@ const getAll = async (_req, res) => {
   }
 };
 
+// Return a single army
 const getSingle = async (req, res) => {
   try {
     if (!req.params.id) {
@@ -35,6 +37,7 @@ const getSingle = async (req, res) => {
   }
 };
 
+// Create a new army
 const createSingle = async (req, res) => {
   try {
     const army = new Army({
@@ -69,6 +72,7 @@ const createSingle = async (req, res) => {
   }
 };
 
+// Delete a single army
 const deleteSingle = async (req, res) => {
   try {
     if (!req.params.id) {
@@ -87,6 +91,7 @@ const deleteSingle = async (req, res) => {
   }
 };
 
+// Update a single army
 const updateSingle = async (req, res) => {
   try {
     const army = new Army({
