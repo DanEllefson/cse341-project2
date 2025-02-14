@@ -106,7 +106,7 @@ const updateSingleWave = async (req, res) => {
       return res.status(404).json({ message: 'Wave not found' });
     }
 
-    res.status(200).json(returnWave);
+    res.status(204).json(returnWave);
   } catch (error) {
     res.status(400).json({ message: 'Failed to update wave', error: error.message });
   }

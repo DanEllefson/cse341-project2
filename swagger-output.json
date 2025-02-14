@@ -131,7 +131,7 @@
           "$ref": "#/components/requestBodies/Armies"
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "Army updated successfully"
           },
           "400": {
@@ -272,7 +272,7 @@
           "$ref": "#/components/requestBodies/Generals"
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "General updated successfully"
           },
           "400": {
@@ -410,7 +410,7 @@
           "$ref": "#/components/requestBodies/Waves"
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "Wave updated successfully"
           },
           "400": {
@@ -548,7 +548,7 @@
           "$ref": "#/components/requestBodies/Glyphs"
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "Glyph updated successfully"
           },
           "400": {
