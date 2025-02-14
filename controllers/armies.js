@@ -134,7 +134,7 @@ const updateSingleArmy = async (req, res) => {
       return res.status(404).json({ message: 'Army not found' });
     }
 
-    res.status(200).json(returnArmy);
+    res.status(204).json(returnArmy);
   } catch (error) {
     res.status(400).json({ message: 'Failed to update army', error: error.message });
   }

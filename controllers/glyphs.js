@@ -108,7 +108,7 @@ const updateSingleGlyph = async (req, res) => {
       return res.status(404).json({ message: 'Glyph not found' });
     }
 
-    res.status(200).json(returnGlyph);
+    res.status(204).json(returnGlyph);
   } catch (error) {
     res.status(400).json({ message: 'Failed to update glyph', error: error.message });
   }

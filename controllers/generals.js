@@ -106,7 +106,7 @@ const updateSingleGeneral = async (req, res) => {
       return res.status(404).json({ message: 'General not found' });
     }
 
-    res.status(200).json(returnGeneral);
+    res.status(204).json(returnGeneral);
   } catch (error) {
     res.status(400).json({ message: 'Failed to update general', error: error.message });
   }
