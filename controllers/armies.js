@@ -4,7 +4,7 @@
 const Army = require('../models/army.model');
 
 // Return all armies
-const getAll = async (_req, res) => {
+const getAllArmies = async (_req, res) => {
   try {
     const armies = await Army.find();
     if (!armies || armies.length === 0) {
@@ -19,7 +19,7 @@ const getAll = async (_req, res) => {
 };
 
 // Return a single army
-const getSingle = async (req, res) => {
+const getSingleArmy = async (req, res) => {
   try {
     if (!req.params.id) {
       return res.status(400).json({ message: 'ID parameter is required' });
@@ -38,7 +38,7 @@ const getSingle = async (req, res) => {
 };
 
 // Create a new army
-const createSingle = async (req, res) => {
+const createSingleArmy = async (req, res) => {
   try {
     const army = new Army({
       name: req.body.name,
@@ -73,7 +73,7 @@ const createSingle = async (req, res) => {
 };
 
 // Delete a single army
-const deleteSingle = async (req, res) => {
+const deleteSingleArmy = async (req, res) => {
   try {
     if (!req.params.id) {
       return res.status(400).json({ message: 'ID parameter is required' });
@@ -92,7 +92,7 @@ const deleteSingle = async (req, res) => {
 };
 
 // Update a single army
-const updateSingle = async (req, res) => {
+const updateSingleArmy = async (req, res) => {
   try {
     const army = new Army({
       name: req.body.name,
@@ -140,4 +140,10 @@ const updateSingle = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getSingle, createSingle, deleteSingle, updateSingle };
+module.exports = {
+  getAllArmies,
+  getSingleArmy,
+  createSingleArmy,
+  deleteSingleArmy,
+  updateSingleArmy
+};
