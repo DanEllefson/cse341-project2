@@ -312,6 +312,282 @@
           }
         }
       }
+    },
+    "/waves": {
+      "get": {
+        "tags": [
+          "waves"
+        ],
+        "summary": "Return all waves",
+        "description": "Return all waves in the database",
+        "operationId": "getAllWaves",
+        "responses": {
+          "200": {
+            "description": "Waves found"
+          },
+          "400": {
+            "description": "Failed to get waves"
+          },
+          "404": {
+            "description": "No waves found in the database"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "waves"
+        ],
+        "summary": "Create a new wave",
+        "description": "Create a new wave in the database",
+        "operationId": "createSingleWave",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Waves"
+        },
+        "responses": {
+          "201": {
+            "description": "New wave created successfully"
+          },
+          "400": {
+            "description": "Failed to create wave"
+          }
+        }
+      }
+    },
+    "/waves/{id}": {
+      "get": {
+        "tags": [
+          "waves"
+        ],
+        "summary": "Return a single wave",
+        "description": "Return a single wave from the database using the wave id value",
+        "operationId": "getSingleWave",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of wave to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wave found"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Wave not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "waves"
+        ],
+        "summary": "Update an existing wave",
+        "description": "Update a single wave from the database using the wave id value",
+        "operationId": "updateSingleWave",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of wave to update",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Waves"
+        },
+        "responses": {
+          "200": {
+            "description": "Wave updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Wave not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "waves"
+        ],
+        "summary": "Delete a single wave",
+        "description": "Delete a single wave from the database using the wave id value",
+        "operationId": "deleteSingleWave",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of wave to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wave deleted"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Wave not found"
+          }
+        }
+      }
+    },
+    "/glyphs": {
+      "get": {
+        "tags": [
+          "glyphs"
+        ],
+        "summary": "Return all glyphs",
+        "description": "Return all glyphs in the database",
+        "operationId": "getAllGlyphs",
+        "responses": {
+          "200": {
+            "description": "Glyphs found"
+          },
+          "400": {
+            "description": "Failed to get glyphs"
+          },
+          "404": {
+            "description": "No glyphs found in the database"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "glyphs"
+        ],
+        "summary": "Create a new glyph",
+        "description": "Create a new glyph in the database",
+        "operationId": "createSingleGlyph",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Glyphs"
+        },
+        "responses": {
+          "201": {
+            "description": "New glyph created successfully"
+          },
+          "400": {
+            "description": "Failed to create glyph"
+          }
+        }
+      }
+    },
+    "/glyphs/{id}": {
+      "get": {
+        "tags": [
+          "glyphs"
+        ],
+        "summary": "Return a single glyph",
+        "description": "Return a single glyph from the database using the glyph id value",
+        "operationId": "getSingleGlyph",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of glyph to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Glyph found"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Glyph not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "glyphs"
+        ],
+        "summary": "Update an existing glyph",
+        "description": "Update a single glyph from the database using the glyph id value",
+        "operationId": "updateSingleGlyph",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of glyph to update",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Glyphs"
+        },
+        "responses": {
+          "200": {
+            "description": "Glyph updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Glyph not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "glyphs"
+        ],
+        "summary": "Delete a single glyph",
+        "description": "Delete a single glyph from the database using the glyph id value",
+        "operationId": "deleteSingleGlyph",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of glyph to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Glyph deleted"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Glyph not found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -400,11 +676,25 @@
             "type": "string"
           },
           "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "Glyphs": {
+        "type": "object",
+        "properties": {
+          "name": {
             "type": "string"
           },
-          "symbol": {
-            "type": "string",
-            "format": "date-time"
+          "wave": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
           },
           "description": {
             "type": "string"
@@ -436,6 +726,15 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Waves"
+            }
+          }
+        }
+      },
+      "Glyphs": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Glyphs"
             }
           }
         }

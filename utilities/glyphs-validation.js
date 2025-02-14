@@ -1,19 +1,19 @@
 'use strict';
 
 const { body, param, validationResult } = require('express-validator');
-const generalsValidate = {};
+const glyphsValidate = {};
 
 /*************************************
  *  MongoId validation rules
  *************************************/
-generalsValidate.idRules = () => {
+glyphsValidate.idRules = () => {
   return [param('id').isMongoId().withMessage('Invalid ID')];
 };
 
 /*************************************
  *  Check MongoId validation
  *************************************/
-generalsValidate.checkId = (req, res, next) => {
+glyphsValidate.checkId = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
@@ -22,32 +22,44 @@ generalsValidate.checkId = (req, res, next) => {
 };
 
 /*************************************
- *  General validation rules
+ *  Glyph validation rules
  *************************************/
-generalsValidate.generalRules = () => {
+glyphsValidate.glyphRules = () => {
   return [
     body('name')
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
-      .withMessage('General name must be more than 1 character'),
+      .withMessage('Glyph name must be more than 1 character'),
 
-    body('background')
+    body('wave')
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
-      .withMessage('General background must be more than 1 character'),
+      .withMessage('Glyph wave must be more than 1 character'),
 
-    body('symbol').isURL().notEmpty().withMessage('Must be a valid URL')
+    body('summary')
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 1 })
+      .withMessage('Glyph summary must be more than 1 character'),
+
+    body('description')
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 1 })
+      .withMessage('Glyph description must be more than 1 character')
   ];
 };
 
 /*************************************
- *  General validation check
+ *  Glyph validation check
  *************************************/
-generalsValidate.checkGeneral = (req, res, next) => {
+glyphsValidate.checkGlyph = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
@@ -55,4 +67,4 @@ generalsValidate.checkGeneral = (req, res, next) => {
   return res.status(400).json({ errors: errors.array() });
 };
 
-module.exports = generalsValidate;
+module.exports = glyphsValidate;
