@@ -10,14 +10,14 @@ const utilities = require('../utilities/index');
 const router = express.Router();
 
 // Return all armies
-router.get('/', utilities.handleErrors(armiesController.getAll));
+router.get('/', utilities.handleErrors(armiesController.getAllArmies));
 
 // Return a single army
 router.get(
   '/:id',
   armiesValidate.idRules(),
   armiesValidate.checkId,
-  utilities.handleErrors(armiesController.getSingle)
+  utilities.handleErrors(armiesController.getSingleArmy)
 );
 
 // Delete a single army
@@ -25,7 +25,7 @@ router.delete(
   '/:id',
   armiesValidate.idRules(),
   armiesValidate.checkId,
-  utilities.handleErrors(armiesController.deleteSingle)
+  utilities.handleErrors(armiesController.deleteSingleArmy)
 );
 
 // Create a new army
@@ -33,7 +33,7 @@ router.post(
   '/',
   armiesValidate.armyRules(),
   armiesValidate.checkArmy,
-  utilities.handleErrors(armiesController.createSingle)
+  utilities.handleErrors(armiesController.createSingleArmy)
 );
 
 // Update a single army
@@ -43,7 +43,7 @@ router.put(
   armiesValidate.checkId,
   armiesValidate.armyRules(),
   armiesValidate.checkArmy,
-  utilities.handleErrors(armiesController.updateSingle)
+  utilities.handleErrors(armiesController.updateSingleArmy)
 );
 
 module.exports = router;

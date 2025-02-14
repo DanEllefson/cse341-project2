@@ -39,9 +39,9 @@
         "tags": [
           "armies"
         ],
-        "summary": "Return armies",
+        "summary": "Return all armies",
         "description": "Return all armies in the database",
-        "operationId": "getAll",
+        "operationId": "getAllArmies",
         "responses": {
           "200": {
             "description": "Armies found"
@@ -60,7 +60,7 @@
         ],
         "summary": "Create a new army",
         "description": "Create a new army in the database",
-        "operationId": "createSingle",
+        "operationId": "createSingleArmy",
         "requestBody": {
           "$ref": "#/components/requestBodies/Armies"
         },
@@ -81,7 +81,7 @@
         ],
         "summary": "Return a single army",
         "description": "Return a single army from the database using the army id value",
-        "operationId": "getSingle",
+        "operationId": "getSingleArmy",
         "parameters": [
           {
             "name": "id",
@@ -113,7 +113,7 @@
         ],
         "summary": "Update an existing army",
         "description": "Update a single army from the database using the army id value",
-        "operationId": "updateSingle",
+        "operationId": "updateSingleArmy",
         "parameters": [
           {
             "name": "id",
@@ -148,7 +148,7 @@
         ],
         "summary": "Delete a single army",
         "description": "Delete a single army from the database using the army id value",
-        "operationId": "deleteSingle",
+        "operationId": "deleteSingleArmy",
         "parameters": [
           {
             "name": "id",
@@ -171,6 +171,144 @@
           },
           "404": {
             "description": "Army not found"
+          }
+        }
+      }
+    },
+    "/generals": {
+      "get": {
+        "tags": [
+          "generals"
+        ],
+        "summary": "Return all generals",
+        "description": "Return all generals in the database",
+        "operationId": "getAllGenerals",
+        "responses": {
+          "200": {
+            "description": "Generals found"
+          },
+          "400": {
+            "description": "Failed to get generals"
+          },
+          "404": {
+            "description": "No generals found in the database"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "generals"
+        ],
+        "summary": "Create a new general",
+        "description": "Create a new general in the database",
+        "operationId": "createSingleGeneral",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Generals"
+        },
+        "responses": {
+          "201": {
+            "description": "New general created successfully"
+          },
+          "400": {
+            "description": "Failed to create general"
+          }
+        }
+      }
+    },
+    "/generals/{id}": {
+      "get": {
+        "tags": [
+          "generals"
+        ],
+        "summary": "Return a single general",
+        "description": "Return a single general from the database using the general id value",
+        "operationId": "getSingleGeneral",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of general to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "General found"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "General not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "generals"
+        ],
+        "summary": "Update an existing general",
+        "description": "Update a single general from the database using the general id value",
+        "operationId": "updateSingleGeneral",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of general to update",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Generals"
+        },
+        "responses": {
+          "200": {
+            "description": "General updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "General not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "generals"
+        ],
+        "summary": "Delete a single general",
+        "description": "Delete a single general from the database using the general id value",
+        "operationId": "deleteSingleGeneral",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of general to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "General deleted"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "General not found"
           }
         }
       }
@@ -280,6 +418,24 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Armies"
+            }
+          }
+        }
+      },
+      "Generals": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Generals"
+            }
+          }
+        }
+      },
+      "Waves": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Waves"
             }
           }
         }
