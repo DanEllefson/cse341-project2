@@ -8,7 +8,8 @@ const mongodb = require('./db/connect');
 const routes = require('./routes/index');
 const utilites = require('./utilities/index');
 
-// Use for development purposes only
+/*** Use for development purposes only ***/
+// Create a JWT secret and store it in the .env file
 // const jwtSecretGenerator = require('./utilities/jwt-secret-generator');
 // jwtSecretGenerator();
 
