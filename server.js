@@ -19,7 +19,7 @@ require('./models/general.model');
 require('./models/wave.model');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 // Mount the CORS middleware to allow requests from any origin
 app.use(cors());
