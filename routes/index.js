@@ -3,7 +3,6 @@
 const express = require('express');
 const router = express.Router();
 const swaggerDocs = require('./swagger');
-const authRoutes = require('./auth');
 const armiesRoutes = require('./armies');
 const generalsRoutes = require('./generals');
 const wavesRoutes = require('./waves');
@@ -12,9 +11,6 @@ const utilities = require('../utilities/index');
 
 // Mount the Swagger routes to serve the API documentation
 router.use('/', utilities.handleErrors(swaggerDocs));
-
-// Mount a sub-router to handle all routes under /auth
-router.use('/', utilities.handleErrors(authRoutes));
 
 // Mount a sub-router to handle all routes under /armies
 router.use('/armies', utilities.handleErrors(armiesRoutes));
