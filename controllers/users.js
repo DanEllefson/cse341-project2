@@ -24,14 +24,19 @@ const updateSingleUser = async (req, res) => {
       return res.status(400).json({ message: 'ID parameter is required' });
     }
 
-    console.log('id:', req.params.id, 'role:', role, 'user:', req.user.role);
-
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     // Only admins can update roles
     if (role && req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Only admins can update roles' });
+    }
+
+    // Only the user or an admin can update the preferred name
+    if (preferred_name && req.user.role !== 'admin' && req.user._id !== user._id.toString()) {
+      return res
+        .status(403)
+        .json({ message: 'Only the user or an admin can update the preferred name' });
     }
 
     if (preferred_name) user.preferred_name = preferred_name;

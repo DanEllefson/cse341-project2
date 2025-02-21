@@ -3,8 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const swaggerDocs = require('./swagger');
-const authRoutes = require('../auth/authRoutes');
-const updateRoutes = require('./user');
+const authRoutes = require('./auth');
+const usersRoutes = require('./users');
 const armiesRoutes = require('./armies');
 const generalsRoutes = require('./generals');
 const wavesRoutes = require('./waves');
@@ -18,7 +18,7 @@ router.use('/', utilities.handleErrors(swaggerDocs));
 router.use('/auth', utilities.handleErrors(authRoutes));
 
 // Mount a sub-router to handle all routes under /user
-router.use('/user', utilities.handleErrors(updateRoutes));
+router.use('/users', utilities.handleErrors(usersRoutes));
 
 // Mount a sub-router to handle all routes under /armies
 router.use('/armies', utilities.handleErrors(armiesRoutes));
