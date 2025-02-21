@@ -8,8 +8,26 @@ const usersValidate = require('../utilities/users-validation');
 
 const router = express.Router();
 
-// Return all users
+// Return all users (must be logged in to access)
 router.get('/', authenticateJWT, utilities.handleErrors(usersController.getAllUsers));
+
+// Return a single user (must be logged in to access)
+router.get(
+  '/:id',
+  authenticateJWT,
+  usersValidate.idRules(),
+  usersValidate.checkId,
+  utilities.handleErrors(usersController.getSingleUser)
+);
+
+// Delete a single user (only accessible by the user or admin)
+router.delete(
+  '/:id',
+  authenticateJWT,
+  usersValidate.idRules(),
+  usersValidate.checkId,
+  utilities.handleErrors(usersController.deleteSingleUser)
+);
 
 // Update user info (only accessible by the user or admin)
 router.put(

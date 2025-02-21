@@ -2,6 +2,7 @@
 
 const User = require('../models/user.model');
 
+// Return all users (must be logged in to access)
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -12,10 +13,51 @@ const getAllUsers = async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(users);
   } catch (err) {
-    res.status(500).json({ message: 'Error getting users', error: err.message });
+    res.status(400).json({ message: 'Error getting users', error: err.message });
   }
 };
 
+// Return a single user (must be logged in to access)
+const getSingleUser = async (req, res) => {
+  try {
+    if (!req.params.id) {
+      return res.status(400).json({ message: 'ID parameter is required' });
+    }
+
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json({ message: 'Error getting user', error: err.message });
+  }
+};
+
+// Delete a single user (only accessible by the user or admin)
+const deleteSingleUser = async (req, res) => {
+  try {
+    if (!req.params.id) {
+      return res.status(400).json({ message: 'ID parameter is required' });
+    }
+
+    if (req.user.role !== 'admin' && req.user._id !== req.params.id) {
+      return res
+        .status(403)
+        .json({ message: 'Only the user or admin can delete the selected user' });
+    }
+
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json({ message: 'User deleted' });
+  } catch (error) {
+    res.status(400).json({ message: 'Failed to delete user', error: error.message });
+  }
+};
+
+// Update user info (only accessible by the user or admin)
 const updateSingleUser = async (req, res) => {
   const { preferred_name, role } = req.body;
 
@@ -45,8 +87,8 @@ const updateSingleUser = async (req, res) => {
     await user.save();
     res.json({ message: 'User updated successfully', user });
   } catch (err) {
-    res.status(500).json({ message: 'Error updating user', error: err.message });
+    res.status(400).json({ message: 'Error updating user', error: err.message });
   }
 };
 
-module.exports = { updateSingleUser, getAllUsers };
+module.exports = { updateSingleUser, getAllUsers, getSingleUser, deleteSingleUser };
