@@ -58,7 +58,8 @@ const googleCallbackHandler = async (req, res) => {
 // Logout route
 const logout = (req, res) => {
   req.logout(() => {
-    res.json({ message: 'Logged out successfully' });
+    // Redirect to Google's logout URL
+    res.redirect('https://accounts.google.com/Logout');
   });
 };
 

@@ -16,7 +16,7 @@ const authenticateJWT = (req, res, next) => {
       next();
     });
   } else {
-    res.status(401).json({ message: 'Authorization header missing' });
+    res.status(401).json({ message: 'Authorization header missing. Access denied' });
   }
 };
 

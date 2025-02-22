@@ -41,7 +41,7 @@ const deleteSingleUser = async (req, res) => {
       return res.status(400).json({ message: 'ID parameter is required' });
     }
 
-    if (req.user.role !== 'admin' && req.user._id !== req.params.id) {
+    if (req.user.role !== 'admin' && req.user.userId !== req.params.id) {
       return res
         .status(403)
         .json({ message: 'Only the user or admin can delete the selected user' });
@@ -75,7 +75,7 @@ const updateSingleUser = async (req, res) => {
     }
 
     // Only the user or an admin can update the preferred name
-    if (preferred_name && req.user.role !== 'admin' && req.user._id !== user._id.toString()) {
+    if (preferred_name && req.user.role !== 'admin' && req.user.userId !== user._id.toString()) {
       return res
         .status(403)
         .json({ message: 'Only the user or an admin can update the preferred name' });
