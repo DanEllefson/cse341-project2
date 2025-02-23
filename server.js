@@ -3,30 +3,55 @@
 // Import the required modules
 require('dotenv').config(); // This must load before other modules
 const express = require('express');
+const passport = require('passport');
+const session = require('express-session');
 const cors = require('cors');
 const mongodb = require('./db/connect');
 const routes = require('./routes/index');
 const utilites = require('./utilities/index');
 
-/*** Use for development purposes only ***/
-// Create a JWT secret and store it in the .env file
-// const jwtSecretGenerator = require('./utilities/jwt-secret-generator');
-// jwtSecretGenerator();
+// Generate a JWT secret and print it to the console.
+// The JWT should then be stored in the .env file.
+// const generateJwtSecret = require('./utilities/jwt-secret-generator');
+// console.log(generateJwtSecret());
+
+// Initialize Passport and restore authentication state, if any, from the session
+require('./auth/passportConfig');
 
 // Ensure all Mongoose schemas are registered
 require('./models/army.model');
 require('./models/general.model');
 require('./models/wave.model');
+require('./models/glyph.model');
+require('./models/user.model');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 // Mount the CORS middleware to allow requests from any origin
-app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:8080', 'https://cse341-project2-t7en.onrender.com'],
+    credentials: true
+  })
+);
 
 // Mount the body parsing middleware
 app.use(express.json({ strict: false }));
 app.use(express.urlencoded({ extended: true }));
+
+// Mount the session middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+// Mount the Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // All incoming requests will have the response headers set to allow all origins
 app.use('/', (_req, res, next) => {
