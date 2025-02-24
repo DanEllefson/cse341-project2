@@ -31,7 +31,7 @@ router.delete(
 
 // Update user info (only accessible by the user or admin)
 router.put(
-  '/:id',
+  'update/:id',
   authenticateJWT,
   usersValidate.idRules(),
   usersValidate.checkId,
@@ -39,5 +39,8 @@ router.put(
   usersValidate.checkUser,
   utilities.handleErrors(usersController.updateSingleUser)
 );
+
+// Logout route
+router.get('/logout', utilities.handleErrors(usersController.userLogout));
 
 module.exports = router;

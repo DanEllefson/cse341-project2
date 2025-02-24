@@ -55,12 +55,4 @@ const googleCallbackHandler = async (req, res) => {
   }
 };
 
-// Logout route
-const logout = (req, res) => {
-  req.logout(() => {
-    // Redirect to Google's logout URL
-    res.redirect('https://accounts.google.com/Logout');
-  });
-};
-
-module.exports = { googleAuth, googleCallback, googleCallbackHandler, logout };
+module.exports = { googleAuth, googleCallback, googleCallbackHandler };

@@ -91,4 +91,12 @@ const updateSingleUser = async (req, res) => {
   }
 };
 
-module.exports = { updateSingleUser, getAllUsers, getSingleUser, deleteSingleUser };
+// Logout route
+const userLogout = (req, res) => {
+  req.logout(() => {
+    // Redirect to Google's logout URL
+    res.redirect('https://accounts.google.com/Logout');
+  });
+};
+
+module.exports = { updateSingleUser, getAllUsers, getSingleUser, deleteSingleUser, userLogout };
