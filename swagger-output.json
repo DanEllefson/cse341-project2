@@ -95,7 +95,7 @@
         }
       }
     },
-    "/users/getall": {
+    "/users": {
       "get": {
         "tags": [
           "users"
@@ -105,35 +105,42 @@
         "operationId": "getAllUsers",
         "security": [{ "bearerAuth": [] }],
         "responses": {
-          "200": {
-            "description": "Users found"
-          },
-          "400": {
-            "description": "Failed to get users"
-          },
-          "401": {
-            "description": "Unauthorized: User is not an logged in"
-          },
-          "404": {
-            "description": "No users found in the database"
-          }
+          "200": { "description": "Users found" },
+          "400": { "description": "Failed to get users" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "You must be logged in to view user accounts" },
+          "404": { "description": "No users found in the database" }
         }
       }
     },
-    "/users/logout": {
+    "/users/{id}": {
       "get": {
         "tags": ["users"],
-        "summary": "Logout user",
-        "description": "Logs out the user by revoking the Google OAuth token.",
-        "operationId": "userLogout",
+        "summary": "Return a single user",
+        "description": "Return a single user from the database using the user id value",
+        "operationId": "getSingleUser",
         "security": [{ "bearerAuth": [] }],
-        "responses": {
-          "200": { "description": "Successfully logged out" },
-          "400": { "description": "Invalid token or error during logout" }
+        "parameters": [
+          {
+        "name": "id",
+        "in": "path",
+        "description": "Id of user to return",
+        "required": true,
+        "style": "simple",
+        "explode": false,
+        "schema": {
+          "type": "string"
         }
-      }
-    },
-    "/users/update/{id}": {
+          }
+        ],
+        "responses": {
+          "200": { "description": "User found" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be logged in to view user accounts" },
+          "404": { "description": "User not found" }
+        }
+      },
       "put": {
         "tags": ["users"],
         "summary": "Update user account",
@@ -169,8 +176,51 @@
         "responses": {
           "200": { "description": "User updated successfully" },
           "400": { "description": "Invalid request" },
+          "401": { "description": "You are not authorized to access this endpoint" },
           "403": { "description": "Forbidden: Only admins can change roles" },
           "404": { "description": "User not found" }
+        }
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Delete user account",
+        "description": "Allows authenticated users to delete their account.",
+        "operationId": "deleteSingleUser",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of user to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "User deleted" },
+          "400": { "description": "Invalid request" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: Only the owner of the account or admins can delete this user" },
+          "404": { "description": "User not found" }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Logout user",
+        "description": "Logs out the user by revoking the OAuth token.\n**Important:** After logout, click \"Authorize\" → \"Logout\" to clear Swagger's stored token.",
+        "operationId": "userLogout",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Successfully logged out" },
+          "400": { "description": "No token provided or invalid token" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "500": { "description": "Error during logout process" }
         }
       }
     },    

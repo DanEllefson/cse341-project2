@@ -16,6 +16,7 @@ passport.use(
     (accessToken, refreshToken, profile, done) => {
       const user = {
         googleId: profile.id,
+        googleAccessToken: accessToken,
         username: profile.displayName,
         email: profile.emails[0].value
       };

@@ -9,7 +9,7 @@ const usersValidate = require('../utilities/users-validation');
 const router = express.Router();
 
 // Return all users (must be logged in to access)
-router.get('/getall', authenticateJWT, utilities.handleErrors(usersController.getAllUsers));
+router.get('/', authenticateJWT, utilities.handleErrors(usersController.getAllUsers));
 
 // Return a single user (must be logged in to access)
 router.get(
@@ -31,7 +31,7 @@ router.delete(
 
 // Update user info (only accessible by the user or admin)
 router.put(
-  '/update/:id',
+  '/:id',
   authenticateJWT,
   usersValidate.idRules(),
   usersValidate.checkId,
@@ -41,6 +41,6 @@ router.put(
 );
 
 // Logout route
-router.get('/logout', utilities.handleErrors(usersController.userLogout));
+router.post('/logout', utilities.handleErrors(usersController.userLogout));
 
 module.exports = router;

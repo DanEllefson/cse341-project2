@@ -1,6 +1,7 @@
 'use strict';
 
 const User = require('../models/user.model');
+const axios = require('axios');
 
 // Return all users (must be logged in to access)
 const getAllUsers = async (req, res) => {
@@ -91,12 +92,31 @@ const updateSingleUser = async (req, res) => {
   }
 };
 
-// Logout route
-const userLogout = (req, res) => {
-  req.logout(() => {
-    // Redirect to Google's logout URL
-    res.redirect('https://accounts.google.com/Logout');
-  });
+// Logout the user and revoke the Google token
+const userLogout = async (req, res) => {
+  try {
+    const googleToken = req.user?.googleAccessToken;
+
+    if (!googleToken) {
+      console.error('No Google access token found.');
+      return res.status(400).json({ message: 'Google access token not found.' });
+    }
+
+    // Revoke the Google token
+    const revokeResponse = await axios.post(
+      `https://oauth2.googleapis.com/revoke?token=${googleToken}`,
+      null,
+      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+    );
+
+    console.log('Google token revoked:', revokeResponse.data);
+
+    // Respond to Swagger immediately after revocation to prevent it from hanging
+    return res.status(200).json({ message: 'User logged out and token revoked successfully.' });
+  } catch (err) {
+    console.error('Logout error:', err.response?.data || err.message);
+    return res.status(500).json({ message: 'Error logging out.' });
+  }
 };
 
 module.exports = { updateSingleUser, getAllUsers, getSingleUser, deleteSingleUser, userLogout };
