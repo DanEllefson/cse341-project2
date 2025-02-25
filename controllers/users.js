@@ -3,12 +3,19 @@
 const User = require('../models/user.model');
 const axios = require('axios');
 
-// Return all users (must be logged in to access)
+// Return all users if logged in as an admin, or return the current user
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    let users = await User.find();
     if (!users || users.length === 0) {
       return res.status(404).json({ message: 'No users found in database' });
+    }
+
+    // Only admins can see all users. Regular users can only see themselves.
+    if (req.user.role !== 'admin') {
+      // Search for the user in the list of users
+      const userIndex = users.findIndex((user) => user._id.toString() === req.user.userId);
+      users = users.slice(userIndex, userIndex + 1);
     }
 
     res.setHeader('Content-Type', 'application/json');
@@ -18,11 +25,16 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// Return a single user (must be logged in to access)
+// Return any single user if logged in as an admin or the user themselves
 const getSingleUser = async (req, res) => {
   try {
     if (!req.params.id) {
       return res.status(400).json({ message: 'ID parameter is required' });
+    }
+
+    // Only admins can see all users. Regular users can only see themselves.
+    if (req.user.role !== 'admin' && req.user.userId !== req.params.id) {
+      return res.status(403).json({ message: 'Only the user or admin can view the selected user' });
     }
 
     const user = await User.findById(req.params.id);

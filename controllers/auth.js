@@ -12,7 +12,7 @@ const googleCallback = passport.authenticate('google', { failureRedirect: '/' })
 
 // Google OAuth callback handler
 const googleCallbackHandler = async (req, res) => {
-  const { googleId, username, email } = req.user;
+  const { googleAccessToken, googleId, username, email } = req.user;
 
   try {
     // Check if the user exists
@@ -38,7 +38,13 @@ const googleCallbackHandler = async (req, res) => {
 
     // Create JWT with user info
     const token = jwt.sign(
-      { userId: user._id, username: user.username, email: user.email, role: user.role },
+      {
+        googleAccessToken: googleAccessToken,
+        userId: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
