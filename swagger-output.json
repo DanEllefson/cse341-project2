@@ -95,11 +95,36 @@
         }
       }
     },
+    "/users/getall": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Return all users",
+        "description": "Return all users in the database",
+        "operationId": "getAllUsers",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Users found"
+          },
+          "400": {
+            "description": "Failed to get users"
+          },
+          "401": {
+            "description": "Unauthorized: User is not an logged in"
+          },
+          "404": {
+            "description": "No users found in the database"
+          }
+        }
+      }
+    },
     "/users/logout": {
-      "post": {
+      "get": {
         "tags": ["users"],
         "summary": "Logout user",
-        "description": "Logs out the user by revoking the Google OAuth token and blacklisting the JWT.",
+        "description": "Logs out the user by revoking the Google OAuth token.",
         "operationId": "userLogout",
         "security": [{ "bearerAuth": [] }],
         "responses": {
@@ -108,20 +133,33 @@
         }
       }
     },
-    "/users/update": {
+    "/users/update/{id}": {
       "put": {
         "tags": ["users"],
         "summary": "Update user account",
         "description": "Allows authenticated users to update their username or role (admins only for role updates).",
         "operationId": "updateSingleUser",
         "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of user to update",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "username": { "type": "string" },
+                  "preferred_name": { "type": "string" },
                   "role": { "type": "string", "enum": ["user", "developer", "admin"] }
                 }
               }

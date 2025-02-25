@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const { authenticateJWT } = require('../utilities/authentication');
+const { authenticateJWT, authorizeRoles } = require('../utilities/authentication');
 const usersController = require('../controllers/users');
 const utilities = require('../utilities/index');
 const usersValidate = require('../utilities/users-validation');
@@ -9,7 +9,7 @@ const usersValidate = require('../utilities/users-validation');
 const router = express.Router();
 
 // Return all users (must be logged in to access)
-router.get('/', authenticateJWT, utilities.handleErrors(usersController.getAllUsers));
+router.get('/getall', authenticateJWT, utilities.handleErrors(usersController.getAllUsers));
 
 // Return a single user (must be logged in to access)
 router.get(
@@ -31,7 +31,7 @@ router.delete(
 
 // Update user info (only accessible by the user or admin)
 router.put(
-  'update/:id',
+  '/update/:id',
   authenticateJWT,
   usersValidate.idRules(),
   usersValidate.checkId,
