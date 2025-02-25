@@ -101,7 +101,7 @@
           "users"
         ],
         "summary": "Return all users",
-        "description": "Return all users in the database",
+        "description": "Return all users in the database for admins. Regular users can only view their own account.",
         "operationId": "getAllUsers",
         "security": [{ "bearerAuth": [] }],
         "responses": {
@@ -117,7 +117,7 @@
       "get": {
         "tags": ["users"],
         "summary": "Return a single user",
-        "description": "Return a single user from the database using the user id value",
+        "description": "For admins, return a single user from the database using the user id value. For regular users, return their own account.",
         "operationId": "getSingleUser",
         "security": [{ "bearerAuth": [] }],
         "parameters": [

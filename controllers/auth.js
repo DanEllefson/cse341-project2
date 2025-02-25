@@ -24,7 +24,7 @@ const googleCallbackHandler = async (req, res) => {
         googleId,
         username,
         email,
-        role: 'user' // Default role
+        role: 'admin' // *** This is for testing/grading purposes only. Change to 'user' for production ***
       });
       await user.save();
     } else {

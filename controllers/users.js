@@ -13,7 +13,6 @@ const getAllUsers = async (req, res) => {
 
     // Only admins can see all users. Regular users can only see themselves.
     if (req.user.role !== 'admin') {
-      // Search for the user in the list of users
       const userIndex = users.findIndex((user) => user._id.toString() === req.user.userId);
       users = users.slice(userIndex, userIndex + 1);
     }
@@ -115,13 +114,9 @@ const userLogout = async (req, res) => {
     }
 
     // Revoke the Google token
-    const revokeResponse = await axios.post(
-      `https://oauth2.googleapis.com/revoke?token=${googleToken}`,
-      null,
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-    );
-
-    console.log('Google token revoked:', revokeResponse.data);
+    await axios.post(`https://oauth2.googleapis.com/revoke?token=${googleToken}`, null, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
 
     // Respond to Swagger immediately after revocation to prevent it from hanging
     return res.status(200).json({ message: 'User logged out and token revoked successfully.' });
