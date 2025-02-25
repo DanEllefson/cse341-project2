@@ -11,7 +11,7 @@ passport.use(
       callbackURL:
         process.env.NODE_ENV === 'production'
           ? 'https://cse341-project2-t7en.onrender.com/auth/google/callback'
-          : 'http://localhost:8080/auth/google/callback'
+          : 'https://localhost:8443/auth/google/callback'
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
