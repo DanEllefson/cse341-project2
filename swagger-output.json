@@ -7,8 +7,8 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080",
-      "description": "Local Host"
+      "url": "https://localhost:8443",
+      "description": "Local HTTPS Host"
     },
     {
       "url": "https://cse341-project2-t7en.onrender.com",
@@ -698,8 +698,8 @@
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "http://localhost:8080/auth/google",
-            "tokenUrl": "http://localhost:8080/auth/google/callback",
+            "authorizationUrl": "https://localhost:8443/auth/google",
+            "tokenUrl": "https://localhost:8443/auth/google/callback",
             "scopes": {
               "profile": "Access user profile",
               "email": "Access user email"

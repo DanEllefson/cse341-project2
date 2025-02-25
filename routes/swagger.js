@@ -14,7 +14,7 @@ router.use(
       scopes: ['profile', 'email'],
       usePkceWithAuthorizationCodeGrant: true
     },
-    oauth2RedirectUrl: 'http://localhost:8080/api-docs/oauth2-redirect.html'
+    oauth2RedirectUrl: 'https://localhost:8443/api-docs/oauth2-redirect.html'
   })
 );
 

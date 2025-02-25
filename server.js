@@ -36,16 +36,19 @@ const sslOptions = {
 app.use(
   cors({
     origin: [
-      'http://localhost:8080',
-      'http://localhost:8080/api-docs',
       'https://localhost:8443',
       'https://localhost:8443/api-docs',
+      'http://localhost:8080',
       'https://cse341-project2-t7en.onrender.com'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
   })
 );
+
+// Add CORS preflight handling
+app.options('*', cors());
 
 // Middleware setup
 app.use(express.json({ strict: false }));
@@ -83,7 +86,6 @@ app.use((err, req, res, _next) => {
 const httpServer = app.listen(port, async () => {
   try {
     await mongodb.connectMongoose();
-    console.log(`HTTP server running at http://localhost:${port}`);
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);
   }
