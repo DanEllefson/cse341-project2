@@ -86,6 +86,7 @@ app.use((err, req, res, _next) => {
 const httpServer = app.listen(port, async () => {
   try {
     await mongodb.connectMongoose();
+    console.log(`HTTP server running at http://localhost:${port}`);
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);
   }
