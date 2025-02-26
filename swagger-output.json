@@ -251,16 +251,15 @@
         "summary": "Create a new army",
         "description": "Create a new army in the database",
         "operationId": "createSingleArmy",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "$ref": "#/components/requestBodies/Armies"
         },
         "responses": {
-          "201": {
-            "description": "New army created successfully"
-          },
-          "400": {
-            "description": "Failed to create army"
-          }
+          "201": { "description": "New army created successfully" },
+          "400": { "description": "Failed to create army" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to create an army" }
         }
       }
     },
@@ -304,6 +303,7 @@
         "summary": "Update an existing army",
         "description": "Update a single army from the database using the army id value",
         "operationId": "updateSingleArmy",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -321,15 +321,11 @@
           "$ref": "#/components/requestBodies/Armies"
         },
         "responses": {
-          "204": {
-            "description": "Army updated successfully"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Army not found"
-          }
+          "204": { "description": "Army updated successfully" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to update an army" },
+          "404": { "description": "Army not found" }
         }
       },
       "delete": {
@@ -339,6 +335,7 @@
         "summary": "Delete a single army",
         "description": "Delete a single army from the database using the army id value",
         "operationId": "deleteSingleArmy",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -352,16 +349,12 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Army deleted"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Army not found"
-          }
+          "responses": {
+          "200": { "description": "Army deleted" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be an admin to delete an army" },
+          "404": { "description": "Army not found" }
         }
       }
     },

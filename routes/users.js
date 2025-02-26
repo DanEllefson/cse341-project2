@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const { authenticateJWT, authorizeRoles } = require('../utilities/authentication');
+const { authenticateJWT } = require('../utilities/authentication');
 const usersController = require('../controllers/users');
 const utilities = require('../utilities/index');
 const usersValidate = require('../utilities/users-validation');
