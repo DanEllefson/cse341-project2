@@ -101,7 +101,7 @@
           "users"
         ],
         "summary": "Return all users",
-        "description": "Return all users in the database for admins. Regular users can only view their own account.",
+        "description": "Return all users in the database for admins. Other users can only view their own account.",
         "operationId": "getAllUsers",
         "security": [{ "bearerAuth": [] }],
         "responses": {
@@ -117,7 +117,7 @@
       "get": {
         "tags": ["users"],
         "summary": "Return a single user",
-        "description": "For admins, return a single user from the database using the user id value. For regular users, return their own account.",
+        "description": "For admins, return a single user from the database using the user id value. For other users, return their own account.",
         "operationId": "getSingleUser",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -243,7 +243,7 @@
           "armies"
         ],
         "summary": "Create a new army",
-        "description": "Create a new army in the database",
+        "description": "Create a new army in the database (developer or admin only)",
         "operationId": "createSingleArmy",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -289,7 +289,7 @@
           "armies"
         ],
         "summary": "Update an existing army",
-        "description": "Update a single army from the database using the army id value",
+        "description": "Update a single army from the database using the army id value (developer or admin only)",
         "operationId": "updateSingleArmy",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -321,7 +321,7 @@
           "armies"
         ],
         "summary": "Delete a single army",
-        "description": "Delete a single army from the database using the army id value",
+        "description": "Delete a single army from the database using the army id value (admin only)",
         "operationId": "deleteSingleArmy",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -365,7 +365,7 @@
           "generals"
         ],
         "summary": "Create a new general",
-        "description": "Create a new general in the database",
+        "description": "Create a new general in the database (developer or admin only)",
         "operationId": "createSingleGeneral",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -411,7 +411,7 @@
           "generals"
         ],
         "summary": "Update an existing general",
-        "description": "Update a single general from the database using the general id value",
+        "description": "Update a single general from the database using the general id value (developer or admin only)",
         "operationId": "updateSingleGeneral",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -443,7 +443,7 @@
           "generals"
         ],
         "summary": "Delete a single general",
-        "description": "Delete a single general from the database using the general id value",
+        "description": "Delete a single general from the database using the general id value (admin only)",
         "operationId": "deleteSingleGeneral",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -484,7 +484,7 @@
           "waves"
         ],
         "summary": "Create a new wave",
-        "description": "Create a new wave in the database",
+        "description": "Create a new wave in the database (developer or admin only)",
         "operationId": "createSingleWave",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -530,7 +530,7 @@
           "waves"
         ],
         "summary": "Update an existing wave",
-        "description": "Update a single wave from the database using the wave id value",
+        "description": "Update a single wave from the database using the wave id value (developer or admin only)",
         "operationId": "updateSingleWave",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -562,7 +562,7 @@
           "waves"
         ],
         "summary": "Delete a single wave",
-        "description": "Delete a single wave from the database using the wave id value",
+        "description": "Delete a single wave from the database using the wave id value (admin only)",
         "operationId": "deleteSingleWave",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -603,7 +603,7 @@
           "glyphs"
         ],
         "summary": "Create a new glyph",
-        "description": "Create a new glyph in the database",
+        "description": "Create a new glyph in the database (developer or admin only)",
         "operationId": "createSingleGlyph",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -649,7 +649,7 @@
           "glyphs"
         ],
         "summary": "Update an existing glyph",
-        "description": "Update a single glyph from the database using the glyph id value",
+        "description": "Update a single glyph from the database using the glyph id value (developer or admin only)",
         "operationId": "updateSingleGlyph",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -681,7 +681,7 @@
           "glyphs"
         ],
         "summary": "Delete a single glyph",
-        "description": "Delete a single glyph from the database using the glyph id value",
+        "description": "Delete a single glyph from the database using the glyph id value (admin only)",
         "operationId": "deleteSingleGlyph",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
