@@ -233,15 +233,9 @@
         "description": "Return all armies in the database",
         "operationId": "getAllArmies",
         "responses": {
-          "200": {
-            "description": "Armies found"
-          },
-          "400": {
-            "description": "Failed to get armies"
-          },
-          "404": {
-            "description": "No armies found in the database"
-          }
+          "200": { "description": "Armies found"},
+          "400": { "description": "Failed to get armies" },
+          "404": { "description": "No armies found in the database" }
         }
       },
       "post": {
@@ -285,15 +279,9 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Army found"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Army not found"
-          }
+          "200": { "description": "Army found" },
+          "400": { "description": "Invalid ID supplied" },
+          "404": { "description": "Army not found" }
         }
       },
       "put": {
@@ -349,12 +337,12 @@
             }
           }
         ],
-          "responses": {
-          "200": { "description": "Army deleted" },
-          "400": { "description": "Invalid ID supplied" },
-          "401": { "description": "You are not authorized to access this endpoint" },
-          "403": { "description": "Forbidden: You must be an admin to delete an army" },
-          "404": { "description": "Army not found" }
+        "responses": {
+        "200": { "description": "Army deleted" },
+        "400": { "description": "Invalid ID supplied" },
+        "401": { "description": "You are not authorized to access this endpoint" },
+        "403": { "description": "Forbidden: You must be an admin to delete an army" },
+        "404": { "description": "Army not found" }
         }
       }
     },
@@ -367,15 +355,9 @@
         "description": "Return all generals in the database",
         "operationId": "getAllGenerals",
         "responses": {
-          "200": {
-            "description": "Generals found"
-          },
-          "400": {
-            "description": "Failed to get generals"
-          },
-          "404": {
-            "description": "No generals found in the database"
-          }
+          "200": { "description": "Generals found" },
+          "400": { "description": "Failed to get generals" },
+          "404": { "description": "No generals found in the database" }
         }
       },
       "post": {
@@ -385,16 +367,15 @@
         "summary": "Create a new general",
         "description": "Create a new general in the database",
         "operationId": "createSingleGeneral",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "$ref": "#/components/requestBodies/Generals"
         },
         "responses": {
-          "201": {
-            "description": "New general created successfully"
-          },
-          "400": {
-            "description": "Failed to create general"
-          }
+          "201": { "description": "New general created successfully" },
+          "400": { "description": "Failed to create general" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to create a general" }
         }
       }
     },
@@ -420,15 +401,9 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "General found"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "General not found"
-          }
+          "200": { "description": "General found" },
+          "400": { "description": "Invalid ID supplied" },
+          "404": { "description": "General not found" }
         }
       },
       "put": {
@@ -438,6 +413,7 @@
         "summary": "Update an existing general",
         "description": "Update a single general from the database using the general id value",
         "operationId": "updateSingleGeneral",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -455,15 +431,11 @@
           "$ref": "#/components/requestBodies/Generals"
         },
         "responses": {
-          "204": {
-            "description": "General updated successfully"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "General not found"
-          }
+          "204": { "description": "General updated successfully" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to update a general" },
+          "404": { "description": "General not found" }
         }
       },
       "delete": {
@@ -473,6 +445,7 @@
         "summary": "Delete a single general",
         "description": "Delete a single general from the database using the general id value",
         "operationId": "deleteSingleGeneral",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -484,15 +457,11 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "General deleted"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "General not found"
-          }
+          "200": { "description": "General deleted" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be an admin to delete a general" },
+          "404": { "description": "General not found" }
         }
       }
     },
@@ -505,15 +474,9 @@
         "description": "Return all waves in the database",
         "operationId": "getAllWaves",
         "responses": {
-          "200": {
-            "description": "Waves found"
-          },
-          "400": {
-            "description": "Failed to get waves"
-          },
-          "404": {
-            "description": "No waves found in the database"
-          }
+          "200": { "description": "Waves found" },
+          "400": { "description": "Failed to get waves" },
+          "404": { "description": "No waves found in the database" }
         }
       },
       "post": {
@@ -523,16 +486,15 @@
         "summary": "Create a new wave",
         "description": "Create a new wave in the database",
         "operationId": "createSingleWave",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "$ref": "#/components/requestBodies/Waves"
         },
         "responses": {
-          "201": {
-            "description": "New wave created successfully"
-          },
-          "400": {
-            "description": "Failed to create wave"
-          }
+          "201": { "description": "New wave created successfully" },
+          "400": { "description": "Failed to create wave" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to create a wave" }
         }
       }
     },
@@ -558,15 +520,9 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Wave found"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Wave not found"
-          }
+          "200": { "description": "Wave found" },
+          "400": { "description": "Invalid ID supplied" },
+          "404": { "description": "Wave not found" }
         }
       },
       "put": {
@@ -576,6 +532,7 @@
         "summary": "Update an existing wave",
         "description": "Update a single wave from the database using the wave id value",
         "operationId": "updateSingleWave",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -593,15 +550,11 @@
           "$ref": "#/components/requestBodies/Waves"
         },
         "responses": {
-          "204": {
-            "description": "Wave updated successfully"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Wave not found"
-          }
+          "204": { "description": "Wave updated successfully" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to update a wave" },
+          "404": { "description": "Wave not found" }
         }
       },
       "delete": {
@@ -611,6 +564,7 @@
         "summary": "Delete a single wave",
         "description": "Delete a single wave from the database using the wave id value",
         "operationId": "deleteSingleWave",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -622,15 +576,11 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Wave deleted"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Wave not found"
-          }
+          "200": { "description": "Wave deleted" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be an admin to delete a wave" },
+          "404": { "description": "Wave not found" }
         }
       }
     },
@@ -643,15 +593,9 @@
         "description": "Return all glyphs in the database",
         "operationId": "getAllGlyphs",
         "responses": {
-          "200": {
-            "description": "Glyphs found"
-          },
-          "400": {
-            "description": "Failed to get glyphs"
-          },
-          "404": {
-            "description": "No glyphs found in the database"
-          }
+          "200": { "description": "Glyphs found" },
+          "400": { "description": "Failed to get glyphs" },
+          "404": { "description": "No glyphs found in the database" }
         }
       },
       "post": {
@@ -661,16 +605,15 @@
         "summary": "Create a new glyph",
         "description": "Create a new glyph in the database",
         "operationId": "createSingleGlyph",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "$ref": "#/components/requestBodies/Glyphs"
         },
         "responses": {
-          "201": {
-            "description": "New glyph created successfully"
-          },
-          "400": {
-            "description": "Failed to create glyph"
-          }
+          "201": { "description": "New glyph created successfully" },
+          "400": { "description": "Failed to create glyph" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to create a glyph" }
         }
       }
     },
@@ -696,15 +639,9 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Glyph found"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Glyph not found"
-          }
+          "200": { "description": "Glyph found" },
+          "400": { "description": "Invalid ID supplied" },
+          "404": { "description": "Glyph not found" }
         }
       },
       "put": {
@@ -714,6 +651,7 @@
         "summary": "Update an existing glyph",
         "description": "Update a single glyph from the database using the glyph id value",
         "operationId": "updateSingleGlyph",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -731,15 +669,11 @@
           "$ref": "#/components/requestBodies/Glyphs"
         },
         "responses": {
-          "204": {
-            "description": "Glyph updated successfully"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Glyph not found"
-          }
+          "204": { "description": "Glyph updated successfully" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be a developer or admin to update a glyph" },
+          "404": { "description": "Glyph not found" }
         }
       },
       "delete": {
@@ -749,6 +683,7 @@
         "summary": "Delete a single glyph",
         "description": "Delete a single glyph from the database using the glyph id value",
         "operationId": "deleteSingleGlyph",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -760,15 +695,11 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Glyph deleted"
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Glyph not found"
-          }
+          "200": { "description": "Glyph deleted" },
+          "400": { "description": "Invalid ID supplied" },
+          "401": { "description": "You are not authorized to access this endpoint" },
+          "403": { "description": "Forbidden: You must be an admin to delete a glyph" },
+          "404": { "description": "Glyph not found" }
         }
       }
     }
