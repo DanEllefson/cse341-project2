@@ -15,6 +15,19 @@ const BASE_URL = isProduction
 swaggerDocument.components.securitySchemes.oauth2.flows.authorizationCode.authorizationUrl = `${BASE_URL}/auth/google`;
 swaggerDocument.components.securitySchemes.oauth2.flows.authorizationCode.tokenUrl = `${BASE_URL}/auth/google/callback`;
 
+// Remove OAuth routes from Swagger documentation
+if (swaggerDocument.paths['/auth/google']) {
+  delete swaggerDocument.paths['/auth/google'];
+}
+if (swaggerDocument.paths['/auth/google/callback']) {
+  delete swaggerDocument.paths['/auth/google/callback'];
+}
+
+// Remove the "auth" tag if no remaining paths use it
+if (swaggerDocument.tags) {
+  swaggerDocument.tags = swaggerDocument.tags.filter((tag) => tag.name !== 'auth');
+}
+
 router.use(
   '/api-docs',
   swaggerUi.serve,
