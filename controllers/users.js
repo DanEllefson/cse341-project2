@@ -1,7 +1,9 @@
 'use strict';
 
 const User = require('../models/user.model');
+const redisClient = require('../utilities/redisClient');
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
 // Return all users if logged in as an admin, or return the current user
 const getAllUsers = async (req, res) => {
@@ -105,21 +107,44 @@ const updateSingleUser = async (req, res) => {
 
 // Logout the user and revoke the Google token
 const userLogout = async (req, res) => {
-  try {
-    const googleToken = req.user?.googleAccessToken;
+  const authHeader = req.headers.authorization;
 
-    if (!googleToken) {
-      console.error('No Google access token found.');
-      return res.status(400).json({ message: 'Google access token not found.' });
+  if (!authHeader) {
+    return res.status(400).json({ message: 'Authorization header missing.' });
+  }
+
+  const token = authHeader.split(' ')[1]; // Extract JWT
+  const googleToken = req.user?.googleAccessToken;
+
+  try {
+    // Revoke the Google OAuth token
+    if (googleToken) {
+      await axios.post(`https://oauth2.googleapis.com/revoke?token=${googleToken}`, null, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      });
+      console.log('Google access token revoked.');
+    } else {
+      console.warn('No Google access token found to revoke.');
     }
 
-    // Revoke the Google token
-    await axios.post(`https://oauth2.googleapis.com/revoke?token=${googleToken}`, null, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    });
+    // Blacklist the JWT
+    const decoded = jwt.decode(token);
+    if (!decoded) {
+      return res.status(400).json({ message: 'Invalid JWT provided.' });
+    }
 
-    // Respond to Swagger immediately after revocation to prevent it from hanging
-    return res.status(200).json({ message: 'User logged out and token revoked successfully.' });
+    const expiresIn = decoded.exp - Math.floor(Date.now() / 1000); // Seconds until JWT expires
+
+    if (expiresIn > 0) {
+      await redisClient.set(token, 'blacklisted', { EX: expiresIn });
+      console.log(`JWT blacklisted for ${expiresIn} seconds.`);
+    } else {
+      console.warn('JWT already expired.');
+    }
+
+    return res.status(200).json({
+      message: 'User logged out successfully. JWT blacklisted and Google token revoked.'
+    });
   } catch (err) {
     console.error('Logout error:', err.response?.data || err.message);
     return res.status(500).json({ message: 'Error logging out.' });
