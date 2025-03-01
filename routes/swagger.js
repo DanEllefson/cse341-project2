@@ -34,8 +34,10 @@ router.use(
   swaggerUi.setup(swaggerDocument, {
     oauth: {
       clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       scopes: ['profile', 'email'],
-      usePkceWithAuthorizationCodeGrant: true
+      usePkceWithAuthorizationCodeGrant: true,
+      useBasicAuthenticationWithAccessCodeGrant: true
     },
     oauth2RedirectUrl: `${BASE_URL}/api-docs/oauth2-redirect.html`
   })
