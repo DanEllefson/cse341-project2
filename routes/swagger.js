@@ -16,7 +16,7 @@ swaggerDocument.components.securitySchemes.oauth2.flows.authorizationCode.tokenU
 // Define the server URL for Swagger
 const SERVER_URL = [{ url: BASE_URL, description: 'Host server' }];
 
-// Update Swagger document dynamically at runtime
+// Update Swagger document dynamically at runtime with server information
 swaggerDocument.servers = SERVER_URL;
 
 // Remove OAuth routes from Swagger documentation
