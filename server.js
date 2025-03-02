@@ -23,6 +23,8 @@ require('./models/glyph.model');
 require('./models/user.model');
 
 const app = express();
+
+const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 8080;
 const httpsPort = process.env.HTTPS_PORT || 8443;
 
@@ -94,11 +96,13 @@ const httpServer = app.listen(port, async () => {
   }
 });
 
-// Start HTTPS server (mainly for testing and Swagger docs)
-const httpsServer = https.createServer(sslOptions, app);
-httpsServer.listen(httpsPort, () => {
-  console.log(`HTTPS server running at https://localhost:${httpsPort}`);
-});
+// Start HTTPS server (only for local development)
+if (!isProduction) {
+  const httpsServer = https.createServer(sslOptions, app);
+  httpsServer.listen(httpsPort, () => {
+    console.log(`HTTPS server running at https://localhost:${httpsPort}`);
+  });
+}
 
 // Graceful shutdown handlers
 const shutdown = () => {
