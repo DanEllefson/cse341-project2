@@ -9,10 +9,6 @@
     {
       "url": "https://localhost:8443",
       "description": "Local HTTPS Host"
-    },
-    {
-      "url": "https://cse341-project2-t7en.onrender.com",
-      "description": "Render Host"
     }
   ],
   "tags": [

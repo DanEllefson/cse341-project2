@@ -6,14 +6,18 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger-output.json');
 
 // Determine the base URL dynamically based on environment
-const isProduction = process.env.NODE_ENV === 'production';
-const BASE_URL = isProduction
-  ? 'https://cse341-project2-t7en.onrender.com'
-  : 'https://localhost:8443';
+const BASE_URL =
+  process.env.NODE_ENV === 'production' ? process.env.REMOTE_BASE_URL : process.env.LOCAL_BASE_URL;
 
 // Update Swagger OAuth2 security schema with the correct URLs
 swaggerDocument.components.securitySchemes.oauth2.flows.authorizationCode.authorizationUrl = `${BASE_URL}/auth/google`;
 swaggerDocument.components.securitySchemes.oauth2.flows.authorizationCode.tokenUrl = `${BASE_URL}/auth/google/callback`;
+
+// Define the server URL for Swagger
+const SERVER_URL = [{ url: BASE_URL, description: 'Host server' }];
+
+// Update Swagger document dynamically at runtime
+swaggerDocument.servers = SERVER_URL;
 
 // Remove OAuth routes from Swagger documentation
 if (swaggerDocument.paths['/auth/google']) {

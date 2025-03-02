@@ -32,17 +32,17 @@ const sslOptions = {
   cert: fs.readFileSync('localhost.pem')
 };
 
+const allowedOrigins = [
+  process.env.LOCAL_BASE_URL,
+  `${process.env.LOCAL_BASE_URL}/api-docs`,
+  process.env.REMOTE_BASE_URL,
+  `${process.env.REMOTE_BASE_URL}/api-docs`
+];
+
 // Mount CORS middleware
 app.use(
   cors({
-    origin: [
-      'https://localhost:8443',
-      'https://localhost:8443/api-docs',
-      'http://localhost:8080',
-      'http://localhost:8080/api-docs',
-      'https://cse341-project2-t7en.onrender.com',
-      'https://cse341-project2-t7en.onrender.com/api-docs'
-    ],
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
